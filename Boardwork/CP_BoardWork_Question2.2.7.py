@@ -1,6 +1,7 @@
 #Last updated on 10/16/2022
 #Author: Corey Phillips
 #Boardwork for Numerical Methods, problem 2.2.7
+#Present on 10/17/2022
 
 #Fill in the data from problem 4 using methods that are O(h^2) at each point
 #Hint: See the previous problem number 6.
