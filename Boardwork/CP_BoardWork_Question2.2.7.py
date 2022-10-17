@@ -27,6 +27,11 @@ for i in range(9):
     #print(((-3/2)*h)*tableColumn2[i+1] + (2/h)*tableColumn2[i+2] + ((-1*h)/2)*tableColumn2[i+3])
     #print("")
 
+
+#I printed a default derivative of N/A, by using methods that are big O
+#I was not sure how to go above these numbers because I needed to use the values
+#That were on the table and when I added more to my X, I did not have the values to 
+#evaluate at.
 i = 9
 for j in range(2):
     print('x = ', tableColumn1[i+j], 'f(x) = ', tableColumn2[i+j], "f'(x) = N/A")
