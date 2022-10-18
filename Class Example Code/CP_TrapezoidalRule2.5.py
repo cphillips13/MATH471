@@ -17,12 +17,11 @@ def Trap1(f, n, lowlim, uplim):
 
     h = (uplim - lowlim) / n
 
-    for i  in range( 1, n):
+    for i in range( 1, n):
         x = lowlim + i*h
         sum = sum + f(x)
     
     return(h*sum)
-
 
 #Determines error in number of subintervals used for
 #given theoretical bound on |f''(x)| (simple) Trapezoidal rule
