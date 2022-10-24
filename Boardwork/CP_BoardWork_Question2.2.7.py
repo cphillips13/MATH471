@@ -20,8 +20,6 @@ h = 1/10
 #This is my big O approximation
 #(-3/2hf(x) + (2/h)f(x+h) + (-1/2h)f(x+2h) + bigO(h^2))
 
-#Prints a default for the x = 1, this is because I cannot 
-
 for i in range(9):
     print('x = ', tableColumn1[i], 'f(x) = ', tableColumn2[i], "f'(x) = ",
     ((-3/2)*h)*tableColumn2[i] + (2/h)*tableColumn2[i+1] + ((-1*h)/2)*tableColumn2[i+2])
