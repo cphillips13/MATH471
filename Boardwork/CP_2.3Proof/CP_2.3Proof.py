@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 
 import library
-import libary.ch2lib.py as ch2
+import library.ch2lib.py as ch2
 
 x0 = 0
 x1 = 5
