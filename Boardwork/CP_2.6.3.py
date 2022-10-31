@@ -7,10 +7,10 @@ Stored in MATH471 repo on github.com/cphillips13
 Question 2.6.3 & 2.6.4
 Use Algorithm 2.6 to solve the following system of equations.
      
-|6 1 0 0| |x1|   |pi/9     |
-|2 4 1 0| |x2| = |sqrt(3)/2| 
-|0 1 4 2| |x3|   |sqrt(3)/2|
-|0 0 1 6| |x4|   |-pi/9    |
+|6 1 0 0| |x1|   |8 |
+|2 4 1 0| |x2| = |13| 
+|0 1 4 2| |x3|   |22|
+|0 0 1 6| |x4|   |27|
      
 You should get the solution x = (1,2,3,4)^T
 
@@ -26,7 +26,6 @@ an1x1 + an2x2 + ... + annxn = fn
 """
 
 import numpy as np
-import math
 
 def __checkSquare(matrixA, shape):
     if(shape[0] == shape[1]):
@@ -36,66 +35,18 @@ def __checkSquare(matrixA, shape):
         print('matrixA is not square! It is a ', shape[0],' by ', shape[1], ' matrix!')
         return False
 
-def checkUpperCorner(matrixA, shape, isSquare):
-    if(isSquare == True):
-        for i in range(int(shape[0]/2)):
-            for j in range(int(shape[0]/2)):
-                if(i+j+2 < shape[0] and matrixA[i, j + i + 2] != 0):
-                    return False
-        return True
-    else:
-        return False
-
-def checkLowerCorner(matrixA, shape, isSquare):
-    if(isSquare == True):
-        for i in range(int(shape[0]/2)):
-            for j in range(int(shape[0]/2)):
-                if(i+j+2 < shape[0] and matrixA[i+j+2, i] != 0):
-                    return False
-        return True
-    else:
-        return False
-
-def run(matrixA, shape, isSquare):
-    if(isSquare == True):
-        UC = checkUpperCorner(matrixA, shape, isSquare)
-        LC = checkLowerCorner(matrixA, shape, isSquare)
-        print(LC)
-        print(UC)
-        matrixACopy = np.copy(matrixA)
-        x = 0
-        for i in range(shape[0]-1):
-            y = matrixACopy[i,x]
-            x = x+1
-            for j in range(shape[1]):
-                if(matrixACopy[i,j] != 0):
-                    matrixACopy[i+1,j] = matrixACopy[i+1,j] - matrixACopy[i,j]*(matrixACopy[i+1,j]/y)
-                    print(matrixACopy)
-        return 1
-
-
-    return 0 
-
-matrixA = np.matrix([[6,1,0,0], [2,4,1,0], [0,1,4,2], [0,0,1,6]])
-solMatrixA = np.matrix([np.pi/9,np.sqrt(3)/2,np.sqrt(3)/2,np.pi/-9])
-#matrixA = np.matrix([[6,1,0,0,0, np.pi/9], [2,4,1,0,0, np.sqrt(3)/2], [0,1,4,2,0, np.sqrt(3)/2], [0,0,1,6,0, np.pi/-9]])
-diag2 = np.diagonal(matrixA,1,0,1)
-diag3 = np.diagonal(matrixA,0,1,0)
-print(diag2)
-print(diag3)
-
-
+matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,1.0,4.0,2.0], [0,0,1.0,6.0]])
+solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
 shape = np.shape(matrixA)
-isSquare = __checkSquare(matrixA, shape)
-#run(matrixA, shape, isSquare)
 
 def checkEdge(matrixA, shape):
+    retval = True
     for i in range(int(shape[0]/2)):
         diag = np.diagonal(matrixA,i+2, 0, 1)
         diag2 = np.diagonal(matrixA,i+2, 1, 0)
         if(diag.any() or diag2.any() != 0):
-            return False
-    return True
+            retval = False                 
+    return retval
 
 """
 |a c 0 |
@@ -107,24 +58,48 @@ def checkEdge(matrixA, shape):
 |0 b a c|
 |0 0 b a| 
 """
-def arith(matrixA, shape):
-    print(matrixA)
-    diagA = np.diagonal(matrixA).copy
-    diagB = np.diagonal(matrixA, 1, 1, 0).copy
-    diagC = np.diagonal(matrixA, 1, 0, 1).copy
 
-    retMatrix = matrixA.copy
+def arith(matrixA, shape, solMatrixA):
+    #print(matrixA)
+    diagA = np.copy(np.diag(matrixA)) #center
+    diagB = np.copy(np.diag(matrixA, -1)) #bottom
+    diagC = np.copy(np.diag(matrixA, 1)) #top
+    solMatrixAFinal = np.copy(solMatrixA)
+    retMatrix = matrixA.copy()
 
     #pass right
-    for i in range(int(shape[0]-1)):
-        for j in range(int(shape[0]-1)):
-            retMatrix[i+1][j] = retMatrix[i+1][j] - retMatrix[i][j]*(retMatrix[i+1][j]/retMatrix[i][j])
 
-    print(retMatrix)
+    
+    for i in range(shape[0]-1):
+        temp = diagB[i]
+        diagB[i] = diagB[i] - diagA[i] * (temp / diagA[i])
+        diagA[i+1] = diagA[i+1] - diagC[i] * (temp / diagA[i])
+        solMatrixAFinal[0,i+1] = solMatrixAFinal[0, i+1] - solMatrixAFinal[0,i] * (temp / diagA[i]) 
+
+    print(diagA)
+    print(diagC)
+    print(solMatrixAFinal)
+
+    for i in range(shape[0]-1):
+        temp = diagC[shape[0]-2-i]
+        diagC[shape[0]-2-i] = diagC[shape[0]-2-i] - diagA[shape[0]-1-i] * (temp / diagA[shape[0]-1-i])
+        solMatrixAFinal[0,shape[0]-2-i] = solMatrixAFinal[0, shape[0]-2-i] - solMatrixAFinal[0, shape[0]-1-i] * (temp / diagA[shape[0]-1-i])
+   
+    print(diagA)
+    print(diagC)
+    print(solMatrixAFinal)
+
+    for i in range(shape[0]):
+        temp = diagA[i]
+        diagA[i] = diagA[i]/temp
+        solMatrixAFinal[0,i] = solMatrixAFinal[0, i] / temp 
+    
+
+    print(solMatrixAFinal)
+    return retMatrix
 
 
-
-
-    return 0 
+isSquare = __checkSquare(matrixA, shape)
 print(checkEdge(matrixA,shape))
-arith(matrixA, shape)
+arith(matrixA, shape, solMatrixA)
+
