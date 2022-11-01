@@ -3,7 +3,6 @@ import math
 import matplotlib.pyplot as plt
 
 import library
-import library.ch2lib.py as ch2
 
 x0 = 0
 x1 = 5
@@ -18,8 +17,5 @@ ax.plot(x, y)
 plt.axvline(x0+x1/2, color = 'b', label = 'axvline - full height')
 
 plt.show()
-
-
-ch2.hello()
 
 
