@@ -1,7 +1,7 @@
 """
 Corey Phillips
 Started 10/27/22
-Last updated 11/01/22
+Last updated 11/04/22
 Stored in MATH471 repo on github.com/cphillips13
 
 Question 2.6.3 & 2.6.4
@@ -97,7 +97,6 @@ def arith(matrixA, shape, solMatrixA):
 
 matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,1.0,4.0,2.0], [0,0,1.0,6.0]])
 solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
-
 
 print("Matrix: \n", matrixA)
 print("Augmeneted side of matrix: \n", solMatrixA)
