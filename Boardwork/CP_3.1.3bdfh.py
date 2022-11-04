@@ -32,89 +32,31 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-def __bisectionMethodLoop(upper, lower, middle, middleVal, upperVal, lowerVal):
-    if(middleVal == 0):
-        retval = middle
-    elif(upperVal == 0):
-        retval = upper
-    elif(lowerVal == 0):
-        retval = lower
-    elif(lowerVal > 0 and middleVal > 0 or lowerVal < 0 and middleVal < 0):
-        lower = middle
-        retval = lower
-    elif(upperVal > 0 and middleVal > 0 or upperVal < 0 and middleVal < 0):
-        upper = middle
-        retval = upper
-    return retval
-
 def bisectionMethod(upper, lower, equation, priori):
     retval = -999999
+    if(equation == 'b' or 'd' or 'f' or 'h'):
+        for i in range(priori):
+            if(equation == 'b'):
+                middle = (upper + lower) / 2
+                upperVal = math.e**upper - 2
+                lowerVal = math.e**lower - 2
+                middleVal = math.e**middle - 2
+            elif(equation == 'd'):
+                middle = (upper + lower) / 2
+                upperVal = upper**6 - upper - 1
+                lowerVal = lower**6 - lower - 1
+                middleVal = middle**6 - middle - 1
+            elif(equation == 'f'):
+                middle = (upper + lower) / 2
+                upperVal = 1 - 2*upper*math.e**(-upper/2)
+                lowerVal = 1 - 2*lower*math.e**(-lower/2)
+                middleVal = 1 - 2*middle*math.e**(-middle/2)
+            elif(equation == 'h'):
+                middle = (upper + lower) / 2
+                upperVal = upper**2 - math.sin(upper)
+                lowerVal = lower**2 - math.sin(lower)
+                middleVal = middle**2 - math.sin(middle)
 
-    if(equation == 'b'):
-        for i in range(priori):
-            middle = (upper + lower) / 2
-            upperVal = math.e**upper - 2
-            lowerVal = math.e**lower - 2
-            middleVal = math.e**middle - 2
-            if(middleVal == 0):
-                retval = middle
-            elif(upperVal == 0):
-                retval = upper
-            elif(lowerVal == 0):
-                retval = lower
-            elif(lowerVal > 0 and middleVal > 0 or lowerVal < 0 and middleVal < 0):
-                lower = middle
-                retval = lower
-            elif(upperVal > 0 and middleVal > 0 or upperVal < 0 and middleVal < 0):
-                upper = middle
-                retval = upper
-
-    elif(equation == 'd'):
-        for i in range(priori):
-            middle = (upper + lower) / 2
-            upperVal = upper**6 - upper - 1
-            lowerVal = lower**6 - lower - 1
-            middleVal = middle**6 - middle - 1
-            if(middleVal == 0):
-                retval = middle
-            elif(upperVal == 0):
-                retval = upper
-            elif(lowerVal == 0):
-                retval = lower
-            elif(lowerVal > 0 and middleVal > 0 or lowerVal < 0 and middleVal < 0):
-                lower = middle
-                retval = lower
-            elif(upperVal > 0 and middleVal > 0 or upperVal < 0 and middleVal < 0):
-                upper = middle
-                retval = upper
-
-    elif(equation == 'f'):
-        for i in range(priori):
-            #1 - 2xe^(-x/2)
-            middle = (upper + lower) / 2
-            upperVal = 1 - 2*upper*math.e**(-upper/2)
-            lowerVal = 1 - 2*lower*math.e**(-lower/2)
-            middleVal = 1 - 2*middle*math.e**(-middle/2)
-            if(middleVal == 0):
-                retval = middle
-            elif(upperVal == 0):
-                retval = upper
-            elif(lowerVal == 0):
-                retval = lower
-            elif(lowerVal > 0 and middleVal > 0 or lowerVal < 0 and middleVal < 0):
-                lower = middle
-                retval = lower
-            elif(upperVal > 0 and middleVal > 0 or upperVal < 0 and middleVal < 0):
-                upper = middle
-                retval = upper
-                
-    elif(equation == 'h'):
-        for i in range(priori):
-            #x^2 - sin(x)
-            middle = (upper + lower) / 2
-            upperVal = upper**2 - math.sin(upper)
-            lowerVal = lower**2 - math.sin(lower)
-            middleVal = middle**2 - math.sin(middle)
             if(middleVal == 0):
                 retval = middle
             elif(upperVal == 0):
@@ -172,30 +114,30 @@ def main():
         .format(hPriori))
     print('Problem H Solution: {}\n'.format(hSol))
 
-    X = np.arange(-2, math.pi, .05)
-
-    Y1 = math.e**X - 2
-    Y1b = bSol
-    Y2 = X**6 - X - 1
-    Y2d = dSol
-    Y3 = 1 - 2*X*math.e**(-X/2)
-    Y4 = X**2 - np.sin(X)
+    X1 = np.arange(0, 1, .05)
+    X2 = np.arange(0, 2, .05)
+    X3 = np.arange(0, 2, .05)
+    X4 = np.arange(0, math.pi, .05)
+    Y1 = math.e**X1 - 2
+    Y2 = X2**6 - X2 - 1
+    Y3 = 1 - 2*X3*math.e**(-X3/2)
+    Y4 = X4**2 - np.sin(X4)
     
     figure, axis = plt.subplots(2,2)
 
-    axis[0, 0].plot(X, Y1)
+    axis[0, 0].plot(X1, Y1)
     axis[0, 0].axvline(bSol)
     axis[0, 0].set_title("f(x) = e^x - 2, [a,b] = [0,1]")
   
-    axis[0, 1].plot(X, Y2)
+    axis[0, 1].plot(X2, Y2)
     axis[0, 1].axvline(dSol)
     axis[0, 1].set_title("f(x) = x^6 - x - 1, [a,b] = [0,2]")
   
-    axis[1, 0].plot(X, Y3)
+    axis[1, 0].plot(X3, Y3)
     axis[1,0].axvline(fSol)
     axis[1, 0].set_title("f(x) = 1 - 2xe^(-x/2), [a,b] = [0,2]")
   
-    axis[1, 1].plot(X, Y4)
+    axis[1, 1].plot(X4, Y4)
     axis[1,1].axvline(hSol)
     axis[1, 1].set_title("f(x) = x^2 - sin(x), [a,b] = [0,pi]")
 
