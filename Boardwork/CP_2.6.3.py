@@ -27,7 +27,7 @@ an1x1 + an2x2 + ... + annxn = fn
 import numpy as np
 
 #Checks if the matrix is n x n, takes in np.matrix and np.shape
-def __checkSquare(matrixA, shape):
+def __checkSquare(shape):
     retval = False
     #If n = m, the matrix is square
     if(shape[0] == shape[1]):
@@ -47,6 +47,19 @@ def checkEdge(matrixA, shape):
         diag2 = np.diagonal(matrixA,i+2, 1, 0)
         if(diag.any() or diag2.any() != 0):
             retval = False                 
+    return retval
+
+def diagDominant(matrixA, shape):
+    diagA = np.copy(np.diag(matrixA)) #center
+    diagB = np.copy(np.diag(matrixA, -1)) #bottom
+    diagC = np.copy(np.diag(matrixA, 1)) #top
+    
+    retval = True
+    if((abs(diagC[0]) >= abs(diagA[0])) or (abs(diagB[shape[0]-2]) >= abs(diagA[shape[0]-1]))):
+        retval = False
+    for i in range(shape[0] - 2):
+        if(abs(diagA[i+1]) <= abs(diagB[i+1]) + abs(diagC[i+1])):
+            retval = False
     return retval
 
 #Perform the arithmetic for passing right on a matrix, makes the entries of diagB zero.
@@ -89,10 +102,12 @@ solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
 print("Matrix: \n", matrixA)
 print("Augmeneted side of matrix: \n", solMatrixA)
 shape = np.shape(matrixA)
-isSquare = __checkSquare(matrixA, shape)
+isSquare = __checkSquare(shape)
+isDiagDom = diagDominant(matrixA, shape)
+print("Is matrixA diagonally domninant?: ", isDiagDom)
 checkEdgeZeros = checkEdge(matrixA, shape)
 
-if(isSquare == True and checkEdgeZeros == True):
+if(isSquare == True and checkEdgeZeros == True and isDiagDom == True):
     print("Here is the solution of the matrix: \n" , arith(matrixA, shape, solMatrixA))
 else:
     print('Matrix is not square or the corners are not zero. Check again.')
