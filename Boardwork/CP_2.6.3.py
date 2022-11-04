@@ -96,5 +96,3 @@ if(isSquare == True and checkEdgeZeros == True):
     print("Here is the solution of the matrix: \n" , arith(matrixA, shape, solMatrixA))
 else:
     print('Matrix is not square or the corners are not zero. Check again.')
-
-
