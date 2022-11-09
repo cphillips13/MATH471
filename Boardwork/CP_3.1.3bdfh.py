@@ -145,7 +145,7 @@ def main():
     axis[1,1].axhline(0)
     axis[1, 1].set_title("f(x) = x^2 - sin(x), [a,b] = [0,pi]")
 
-    #plt.subplots_adjust(wspace = .6, hspace = .4)
+    plt.subplots_adjust(wspace = .6, hspace = .4)
     plt.show()
 
 main()
