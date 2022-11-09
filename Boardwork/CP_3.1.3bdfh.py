@@ -22,10 +22,10 @@ Define the apprx root as xn = cn = (bn-1 + an-1)/2
 Then there exists a root alpha is in [a,b]
 Such that abs(alpha - xn) <= (1/2)^n * (b-a)
 To achieve an accuracy of abs(alpha - xn) <= epsilon
-take n >= log(b-a) - log(epsilon) / log(2)
+take n >= (log(b-a) - log(epsilon)) / log(2)
 
 Accuracy for this required: 10^-6, this is our epsilon
-For B: n >= log(1) - log(10^-6) / log(2)
+For B: n >= (log(1) - log(10^-6)) / log(2)
 """
 
 import math
@@ -72,7 +72,7 @@ def bisectionMethod(upper, lower, equation, priori):
     return retval
 
 def priori(upper, lower, epsilon):
-    retval = math.ceil(math.log(upper-lower) - math.log(epsilon) / math.log(2))
+    retval = math.ceil((math.log(upper-lower) - math.log(epsilon)) / math.log(2))
     return retval
 
 def main():
@@ -145,7 +145,7 @@ def main():
     axis[1,1].axhline(0)
     axis[1, 1].set_title("f(x) = x^2 - sin(x), [a,b] = [0,pi]")
 
-    plt.subplots_adjust(wspace = .6, hspace = .4)
+    #plt.subplots_adjust(wspace = .6, hspace = .4)
     plt.show()
 
 main()

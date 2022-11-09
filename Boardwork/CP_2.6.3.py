@@ -95,7 +95,7 @@ def arith(matrixA, shape, solMatrixA):
     __scale(diagA, solMatrixAFinal, shape)
     return solMatrixAFinal
 
-matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,1.0,4.0,2.0], [0,0,1.0,6.0]])
+matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,0,4.0,2.0], [0,0,1.0,6.0]])
 solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
 
 print("Matrix: \n", matrixA)
