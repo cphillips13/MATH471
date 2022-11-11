@@ -77,7 +77,6 @@ def regulaFalsi(upper, lower, priori):
         else:
             lower = upper - upperVal*(upper-lower) / (upperVal - lowerVal)
             retval = lower
-        print(retval)
     return retval
 
 def main():
@@ -88,7 +87,7 @@ def main():
     aUpper = 1
     aPriori = priori(aUpper, aLower, epsilon)
     aSol = bisectionMethod(aUpper, aLower, 'a', aPriori)
-    aSolRegulaFalsi = regulaFalsi(2, 0, 3)
+    aSolRegulaFalsi = regulaFalsi(aUpper, aLower, aPriori)
     print("Here is the regulaFalsi for a: {}".format(aSolRegulaFalsi))
 
     bLower = 1/10
