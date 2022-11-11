@@ -65,14 +65,31 @@ def bisectionMethod(upper, lower, equation, priori):
                 retval = upper
     return retval
 
+def regulaFalsi(upper, lower, priori):
+    retval = -999999
+    for i in range(priori):
+        upperVal = upper**3 - 2
+        lowerVal = lower**3 - 2
+        if(upperVal == 0):
+            retval = upper
+        elif(lowerVal == 0):
+            retval = lower
+        else:
+            lower = upper - upperVal*(upper-lower) / (upperVal - lowerVal)
+            retval = lower
+        print(retval)
+    return retval
+
 def main():
 
-    epsilon = .000000000001
+    epsilon = .00000000000001
 
     aLower = 0
     aUpper = 1
     aPriori = priori(aUpper, aLower, epsilon)
     aSol = bisectionMethod(aUpper, aLower, 'a', aPriori)
+    aSolRegulaFalsi = regulaFalsi(2, 0, 3)
+    print("Here is the regulaFalsi for a: {}".format(aSolRegulaFalsi))
 
     bLower = 1/10
     bUpper = 1
@@ -113,7 +130,7 @@ def main():
     print('Problem E: \ne: f(x) = 3 - 2^x, [a, b] = [0, 2]\nPriori:{}'\
         .format(ePriori))
     print('Problem E Solution: {}\n'.format(eSol))
-
+"""
     X1 = np.arange(0, 1, .05)
     X2 = np.arange(1/10, 1, .05)
     X3 = np.arange(0, 3, .05)
@@ -148,5 +165,5 @@ def main():
 
     plt.subplots_adjust(wspace = .6, hspace = .4)
     plt.show()
-
+"""
 main()
