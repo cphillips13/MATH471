@@ -1,7 +1,7 @@
 """
 Corey Phillips
 Started 11/02/22
-Last updated 11/02/22
+Last updated 11/04/22
 Stored in MATH471 repo on github.com/cphillips13
 
 Question 3.1.3 Parts B, D, F, H
@@ -22,10 +22,10 @@ Define the apprx root as xn = cn = (bn-1 + an-1)/2
 Then there exists a root alpha is in [a,b]
 Such that abs(alpha - xn) <= (1/2)^n * (b-a)
 To achieve an accuracy of abs(alpha - xn) <= epsilon
-take n >= log(b-a) - log(epsilon) / log(2)
+take n >= (log(b-a) - log(epsilon)) / log(2)
 
 Accuracy for this required: 10^-6, this is our epsilon
-For B: n >= log(1) - log(10^-6) / log(2)
+For B: n >= (log(1) - log(10^-6)) / log(2)
 """
 
 import math
@@ -72,7 +72,7 @@ def bisectionMethod(upper, lower, equation, priori):
     return retval
 
 def priori(upper, lower, epsilon):
-    retval = math.ceil(math.log(upper-lower) - math.log(epsilon) / math.log(2))
+    retval = math.ceil((math.log(upper-lower) - math.log(epsilon)) / math.log(2))
     return retval
 
 def main():
@@ -127,18 +127,22 @@ def main():
 
     axis[0, 0].plot(X1, Y1)
     axis[0, 0].axvline(bSol)
+    axis[0,0].axhline(0)
     axis[0, 0].set_title("f(x) = e^x - 2, [a,b] = [0,1]")
   
     axis[0, 1].plot(X2, Y2)
     axis[0, 1].axvline(dSol)
+    axis[0, 1].axhline(0)
     axis[0, 1].set_title("f(x) = x^6 - x - 1, [a,b] = [0,2]")
   
     axis[1, 0].plot(X3, Y3)
     axis[1,0].axvline(fSol)
+    axis[1,0].axhline(0)
     axis[1, 0].set_title("f(x) = 1 - 2xe^(-x/2), [a,b] = [0,2]")
   
     axis[1, 1].plot(X4, Y4)
     axis[1,1].axvline(hSol)
+    axis[1,1].axhline(0)
     axis[1, 1].set_title("f(x) = x^2 - sin(x), [a,b] = [0,pi]")
 
     plt.subplots_adjust(wspace = .6, hspace = .4)

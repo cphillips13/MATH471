@@ -1,29 +1,12 @@
 """
 Corey Phillips
-Started 10/27/22
-Last updated 11/04/22
-Stored in MATH471 repo on github.com/cphillips13
+Exam 2
+11/11/22
 
-Question 2.6.3 & 2.6.4
-Use Algorithm 2.6 to solve the following system of equations.
-     
-|6 1 0 0| |x1|   |8 |
-|2 4 1 0| |x2| = |13| 
-|0 1 4 2| |x3|   |22|
-|0 0 1 6| |x4|   |27|
-     
-You should get the solution x = (1,2,3,4)^T
-
-Algorithm 2.6:
-
-a11x1 + a12x2 + ... + a1nxn = f1
-a21x1 + a22x2 + ... + a2nxn = f2
-.                     .        .
-.                     .        .
-.                     .        .
-an1x1 + an2x2 + ... + annxn = fn
-
+Question:
+use this file for the tridiagonal matrix
 """
+
 import numpy as np
 
 #Checks if the matrix is n x n, takes in np.matrix and np.shape
@@ -95,18 +78,21 @@ def arith(matrixA, shape, solMatrixA):
     __scale(diagA, solMatrixAFinal, shape)
     return solMatrixAFinal
 
-matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,0,4.0,2.0], [0,0,1.0,6.0]])
-solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
+def main():
+    #input non augmented
+    matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,0,4.0,2.0], [0,0,1.0,6.0]])
+    #input augmented
+    solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
 
-print("Matrix: \n", matrixA)
-print("Augmeneted side of matrix: \n", solMatrixA)
-shape = np.shape(matrixA)
-isSquare = __checkSquare(shape)
-isDiagDom = diagDominant(matrixA, shape)
-print("Is matrixA diagonally domninant?: ", isDiagDom)
-checkEdgeZeros = checkEdge(matrixA, shape)
+    print("Matrix: \n", matrixA)
+    print("Augmeneted side of matrix: \n", solMatrixA)
+    shape = np.shape(matrixA)
+    isSquare = __checkSquare(shape)
+    isDiagDom = diagDominant(matrixA, shape)
+    print("Is matrixA diagonally domninant?: ", isDiagDom)
+    checkEdgeZeros = checkEdge(matrixA, shape)
 
-if(isSquare == True and checkEdgeZeros == True and isDiagDom == True):
-    print("Here is the solution of the matrix: \n" , arith(matrixA, shape, solMatrixA))
-else:
-    print('Matrix is not square or the corners are not zero. Check again.')
+    if(isSquare == True and checkEdgeZeros == True and isDiagDom == True):
+        print("Here is the solution of the matrix: \n" , arith(matrixA, shape, solMatrixA))
+    else:
+        print('Matrix is not square or the corners are not zero. Check again.')
