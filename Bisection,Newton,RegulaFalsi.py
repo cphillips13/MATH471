@@ -129,7 +129,7 @@ def main():
     print('Problem E: \ne: f(x) = 3 - 2^x, [a, b] = [0, 2]\nPriori:{}'\
         .format(ePriori))
     print('Problem E Solution: {}\n'.format(eSol))
-"""
+
     X1 = np.arange(0, 1, .05)
     X2 = np.arange(1/10, 1, .05)
     X3 = np.arange(0, 3, .05)

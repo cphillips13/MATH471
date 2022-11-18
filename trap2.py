@@ -56,7 +56,7 @@ def ErrorTrap(lowlim, uplim, errtol, fdoubleprime_bound, verbose = False):
 
 #Integrand of erf(x):
 def Ierf(x):
-    return ( math.exp(-1.0*math.pow(x, 2.0)))
+    return (x**3)
 
 a = 0.0
 b = 1.0

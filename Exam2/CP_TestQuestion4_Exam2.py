@@ -3,7 +3,7 @@ Corey Phillips
 Exam 2
 11/11/22
 
-Question:
+Question:4
 use this file for the tridiagonal matrix
 """
 
@@ -78,21 +78,39 @@ def arith(matrixA, shape, solMatrixA):
     __scale(diagA, solMatrixAFinal, shape)
     return solMatrixAFinal
 
-def main():
-    #input non augmented
-    matrixA = np.matrix([[6.0,1.0,0,0], [2.0,4.0,1.0,0], [0,0,4.0,2.0], [0,0,1.0,6.0]])
-    #input augmented
-    solMatrixA = np.matrix([8.0,13.0,22.0,27.0])
+matrixA = np.matrix([[2.0,-1.0,0,0,0,0,0,0,0 , 0], 
+                     [1.0,3.0,-1.0,0,0,0,0,0,0 , 0],
+                     [0,1.0,4.0,-1.0,0,0,0,0,0 , 0],
+                     [0,0,1.0,5.0,-1.0,0,0,0,0 , 0],
+                     [0,0,0,1.0,6.0,-1.0,0,0,0 , 0],
+                     [0,0,0,0,1.0,7.0,-1.0,0,0 , 0],
+                     [0,0,0,0,0,1.0,8.0,-1.0,0 , 0],
+                     [0,0,0,0,0,0,1.0,9.0,-1.0 , 0],
+                     [0,0,0,0,0,0,0,1.0,10.0, -1.0],
+                     [0,0,0,0,0,0,0,0,1.0 ,  11.0]])
 
-    print("Matrix: \n", matrixA)
-    print("Augmeneted side of matrix: \n", solMatrixA)
-    shape = np.shape(matrixA)
-    isSquare = __checkSquare(shape)
-    isDiagDom = diagDominant(matrixA, shape)
-    print("Is matrixA diagonally domninant?: ", isDiagDom)
-    checkEdgeZeros = checkEdge(matrixA, shape)
+solMatrixA = np.matrix([2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0])
 
-    if(isSquare == True and checkEdgeZeros == True and isDiagDom == True):
-        print("Here is the solution of the matrix: \n" , arith(matrixA, shape, solMatrixA))
-    else:
-        print('Matrix is not square or the corners are not zero. Check again.')
+print("Matrix: \n", matrixA)
+print("Augmeneted side of matrix: \n", solMatrixA)
+shape = np.shape(matrixA)
+isSquare = __checkSquare(shape)
+isDiagDom = diagDominant(matrixA, shape)
+print("Is matrixA diagonally domninant?: ", isDiagDom)
+checkEdgeZeros = checkEdge(matrixA, shape)
+
+if(isSquare == True and checkEdgeZeros == True and isDiagDom == True):
+    print("Here is the solution of the matrix: \n" , arith(matrixA, shape, solMatrixA))
+else:
+    print('Matrix is not square or the corners are not zero. Check again.')
+
+diagA = np.copy(np.diag(matrixA)) #center
+diagB = np.copy(np.diag(matrixA, -1)) #bottom
+diagC = np.copy(np.diag(matrixA, 1)) #top
+print( 1 - ((diagA[0] * solMatrixA[0,0]) + (diagC[0] * solMatrixA[0,0])))
+for i in range(8):
+    checkVal = 1 - ((diagA[i+1] * solMatrixA[0,i+1]) + (diagB[i]*solMatrixA[0,i+1]) + (diagC[i+1]*solMatrixA[0,i+1]))
+    print(checkVal)
+print( 1 - ((diagA[9] * solMatrixA[0,9]) + (diagB[8] * solMatrixA[0,9])))
+
+print("Largest component = 23")

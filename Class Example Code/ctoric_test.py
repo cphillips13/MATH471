@@ -1,7 +1,15 @@
-list = [0,1,2,3,4,5,6,7,8,9]
-print("Original list {}".format(list))
-for j in range(4):
-    for i in range(10):
-        list[i] = (3*list[i]+7)%10
-    print("k = {} and list = {}".format(j, list))
+import sympy
+x = sympy.symbols("x")
+x0 = sympy.symbols("x0")
+ksi = sympy.symbols("ksi")
 
+def deriv(degree, poly, evalVar):
+    if(degree >= 0):
+        retDeriv = poly
+        for i in range(degree):
+            retDeriv = sympy.diff(retDeriv, evalVar)   
+        return retDeriv
+    else:
+        print("Please give a degree >= 0")
+        return 0
+        
