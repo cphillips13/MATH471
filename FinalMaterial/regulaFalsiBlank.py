@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import PillowWriter
 
-figure, axis = plt.subplots()
+figure, axis = plt.subplots(2)
 
 l, = plt.plot([], [], 'k-')
 
@@ -24,10 +24,15 @@ def tangent(x, x1, y1):
 xlist = np.linspace(0,3,100)
 ylist = func(xlist)
 
-axis.set_title("Newton's Method: Tangent Lines and estimations")
-axis.axhline(y=0, color='black')
-axis.plot(xlist, ylist)
+axis[0].set_title("Newton's Method: Tangent Lines and estimations")
+axis[0].axhline(y=0, color='black')
+axis[0].plot(xlist, ylist)
 l.set_data(xlist,ylist)
+
+axis[1].set_title("Secant: Lines and estimations")
+axis[1].axhline(y=0, color='black')
+axis[1].plot(xlist, ylist)
+
 plt.show()
 
 metadata = dict(title='Movie', artist='codinglikemad')
@@ -61,5 +66,4 @@ with writer.saving(figure, "testerFN.gif", 100):
             l.set_data(xlist,ylist)
             writer.grab_frame()
         
-
 
