@@ -6,6 +6,8 @@ figure, axis = plt.subplots(2)
 
 l, = plt.plot([], [], 'k-')
 
+ln, = plt.plot([], [], 'k-')
+
 plt.xlim(0,3)
 plt.ylim(-10,30)
 
@@ -58,10 +60,13 @@ with writer.saving(figure, "testerFN.gif", 100):
     for i in range(runtime):
         xlist = []
         ylist = []
+        x2List = []
+        y2List = []
         x0 = newtonList[i]
         y0 = func(x0)
         for xval in np.linspace(0,3,100):
             xlist.append(xval)
+            x2List.append()
             ylist.append(tangent(xval, x0, y0))
             l.set_data(xlist,ylist)
             writer.grab_frame()
