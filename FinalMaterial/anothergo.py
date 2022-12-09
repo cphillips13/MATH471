@@ -71,9 +71,9 @@ newtonList = newtons(x0, err)
 
 secantList = secant(secx1, secx2, err)
 
-writer = PillowWriter(fps=10)
+writer = PillowWriter(fps=30)
 
-with writer.saving(fig, "testerFN.gif", 100):
+with writer.saving(fig, "testerFN.gif", 50):
     
     for i in newtonList:
         xlist = []
