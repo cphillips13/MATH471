@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import PillowWriter
 
-fig, (ax1, ax2) = plt.subplots(2)
+fig, (ax1, ax2, ax3) = plt.subplots(3)
 tLine, = ax1.plot([], [])
 sLine, = ax2.plot([], [])
 
@@ -11,6 +11,9 @@ line = [tLine, sLine]
 for ax in [ax1, ax2]:
     ax.set_ylim(-10,30)
     ax.set_xlim(0,3)
+
+ax3.set_xlim(-2,4)
+
 
 def func(x):
     return (x**3)-(2*x)-5
@@ -26,7 +29,14 @@ ax2.set_title("Secant: Lines and estimations")
 ax2.axhline(y=0, color='black')
 ax2.plot(xlist, ylist)
 
-plt.subplots_adjust(hspace = .4)
+xlist = np.linspace(-2,4,100)
+ylist = func(xlist)
+
+ax3.set_title("Zoomed out original function")
+ax3.axhline(y=0, color='black')
+ax3.plot(xlist, ylist)
+
+plt.subplots_adjust(hspace = .8)
 
 def newtons(x0, err):
     xList = [x0]
@@ -73,7 +83,7 @@ secantList = secant(secx1, secx2, err)
 
 writer = PillowWriter(fps=30)
 
-with writer.saving(fig, "testerFN.gif", 50):
+with writer.saving(fig, "comparisonErasedLine.gif", 100):
     
     for i in newtonList:
         xlist = []
@@ -82,7 +92,8 @@ with writer.saving(fig, "testerFN.gif", 50):
         for xval in np.linspace(0,3,100):
             xlist.append(xval)
             ylist.append(tangent(xval, i, y0))
-            line[0].set_data(xlist,ylist)
+            ax1.plot(xlist, ylist, 'purple')
+            #line[0].set_data(xlist,ylist)
             writer.grab_frame()
 
     for i in secantList:
@@ -91,7 +102,8 @@ with writer.saving(fig, "testerFN.gif", 50):
         for xval in np.linspace(0, 3, 100):
             x2list.append(xval)
             y2list.append(secantLine(xval, i, i+1))
-            line[1].set_data(x2list,y2list)
+            ax2.plot(x2list, y2list, 'green')
+            #line[1].set_data(x2list,y2list)
             writer.grab_frame()
 
 print('Finish')
